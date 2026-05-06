@@ -8,8 +8,19 @@ import json
 import os
 from openai import AsyncOpenAI
 
+import platform
+
 # Set matplotlib to use non-interactive backend
 plt.switch_backend('Agg')
+
+# Set Korean Font
+if platform.system() == 'Darwin': # Mac
+    plt.rc('font', family='AppleGothic')
+elif platform.system() == 'Windows':
+    plt.rc('font', family='Malgun Gothic')
+else:
+    plt.rc('font', family='NanumGothic')
+plt.rcParams['axes.unicode_minus'] = False
 
 client = AsyncOpenAI(api_key=os.environ.get("OPENAI_API_KEY", "dummy"))
 

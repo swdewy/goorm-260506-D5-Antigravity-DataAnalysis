@@ -16,8 +16,8 @@ export function useAnalysis() {
     formData.append('file', file);
 
     try {
-      // Connect to local python backend
-      const response = await axios.post<AnalysisResponse>('http://localhost:8000/api/analyze', formData, {
+      // Connect to local or deployed backend via relative path
+      const response = await axios.post<AnalysisResponse>('/api/analyze', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setData(response.data);

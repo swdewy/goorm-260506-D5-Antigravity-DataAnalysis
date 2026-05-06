@@ -16,8 +16,12 @@ export function useAnalysis() {
     formData.append('file', file);
 
     try {
-      // Connect to local or deployed backend via relative path
-      const response = await axios.post<AnalysisResponse>('/api/analyze', formData, {
+      // Connect to Render backend (if VITE_API_URL is set) or fallback to local relative path
+      const apiUrl = import.meta.env.VITE_API_URL 
+        ? `${import.meta.env.VITE_API_URL}/api/analyze` 
+        : '/api/analyze';
+        
+      const response = await axios.post<AnalysisResponse>(apiUrl, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setData(response.data);

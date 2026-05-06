@@ -1,7 +1,10 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import io
-from analysis import analyze_csv, generate_insights
+try:
+    from analysis import analyze_csv, generate_insights
+except ImportError:
+    from .analysis import analyze_csv, generate_insights
 
 app = FastAPI(title="Data Analysis API")
 
